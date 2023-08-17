@@ -6,7 +6,7 @@ import dask
 import dask.dataframe as dd
 from dask.diagnostics import ProgressBar
 
-from fondant.component_spec import ComponentSpec, ComponentSubset, SubsetFieldMapper
+from fondant.component_spec import ComponentSpec, ComponentSubset, SpecMapper
 from fondant.manifest import Manifest
 
 logger = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ class DaskDataLoader(DataIO):
         manifest: Manifest,
         component_spec: ComponentSpec,
         input_partition_rows: t.Optional[t.Union[int, str]] = None,
-        spec_mapper: t.Optional[SubsetFieldMapper] = None,
+        spec_mapper: t.Optional[SpecMapper] = None,
     ):
         super().__init__(manifest=manifest, component_spec=component_spec)
         self.input_partition_rows = input_partition_rows
@@ -163,8 +163,8 @@ class DaskDataWriter(DataIO):
         *,
         manifest: Manifest,
         component_spec: ComponentSpec,
-        spec_mapper: t.Optional[SubsetFieldMapper] = None,
-        inverse_spec_mapper: t.Optional[SubsetFieldMapper] = None,
+        spec_mapper: t.Optional[SpecMapper] = None,
+        inverse_spec_mapper: t.Optional[SpecMapper] = None,
     ):
         super().__init__(manifest=manifest, component_spec=component_spec)
 

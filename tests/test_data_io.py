@@ -3,7 +3,7 @@ from pathlib import Path
 
 import dask.dataframe as dd
 import pytest
-from fondant.component_spec import ColumnMapping, ComponentSpec, SubsetFieldMapper
+from fondant.component_spec import ColumnMapping, ComponentSpec, SpecMapper
 from fondant.data_io import DaskDataLoader, DaskDataWriter
 from fondant.manifest import Manifest
 
@@ -74,7 +74,7 @@ def test_load_dataframe_mapping_dict(manifest, component_spec):
     ]
     column_mapping = ColumnMapping.list_to_dict(column_mapping_list)
 
-    spec_mapper = SubsetFieldMapper.from_dict(column_mapping)
+    spec_mapper = SpecMapper.from_dict(column_mapping)
 
     dl = DaskDataLoader(
         manifest=manifest,
@@ -190,8 +190,8 @@ def test_write_subsets_mapping_dict(
     # remap name to mock data renaming when spec mapping is specified
     dataframe = dataframe.rename(columns=column_mapping)
 
-    spec_mapper = SubsetFieldMapper.from_dict(column_mapping)
-    inverse_spec_mapper = SubsetFieldMapper.from_dict(
+    spec_mapper = SpecMapper.from_dict(column_mapping)
+    inverse_spec_mapper = SpecMapper.from_dict(
         {v: k for k, v in column_mapping.items()},
     )
 
